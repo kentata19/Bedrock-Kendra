@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     AWS_ACCESS_KEY_ID: str
     AWS_SECRET_ACCESS_KEY: str
     AWS_DEFAULT_REGION: str = "ap-northeast-1"
+    KENDRA_INDEX_ID: str
 
     class Config:
         case_sensitive = True

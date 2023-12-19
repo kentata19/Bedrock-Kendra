@@ -16,5 +16,6 @@ services:
       - BASE_DIR=/app/
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - KENDRA_INDEX_ID=${KENDRA_INDEX_ID}
     tty: true
     stdin_open: true
