@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+   api:
+    container_name: api
+    build:
+        context: .
+        dockerfile: Dockerfile.dev
+    volumes:
+        - ./:/app
+    ports:
+      - "8501:8501"
+    working_dir: /app
+    environment:
+      - PYTHONPATH=/app/src
+      - ENV=local
+      - BASE_DIR=/app/
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    tty: true
+    stdin_open: true
