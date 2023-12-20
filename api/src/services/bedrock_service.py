@@ -1,8 +1,6 @@
-import json
-from dataclasses import dataclass
-
 import boto3
 from common import settings
+from schemas import BedrockRequest
 
 
 class BedrockService:
@@ -14,20 +12,7 @@ class BedrockService:
             region_name="us-east-1",
         )
 
-    @dataclass(slots=True)
-    class RequestBody:
-        prompt: str
-        max_tokens_to_sample: int = 500
-
-        def json(self) -> str:
-            return json.dumps(
-                {
-                    "prompt": self.prompt,
-                    "max_tokens_to_sample": self.max_tokens_to_sample,
-                }
-            )
-
-    def call_endpoint(self, body: RequestBody) -> str:
+    def call_endpoint(self, body: BedrockRequest) -> str:
         response = self.client.invoke_model(
             body=body.json(),
             modelId="anthropic.claude-v2",
