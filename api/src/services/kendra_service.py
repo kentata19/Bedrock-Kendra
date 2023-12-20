@@ -1,5 +1,6 @@
 import boto3
 from common import settings
+from schemas import KendraResponse
 
 
 class KendraService:
@@ -11,8 +12,7 @@ class KendraService:
             region_name="us-east-1",
         )
 
-    # TODO: returnをschemaで管理する
-    def search(self, query: str) -> list[dict[str, str]]:
+    def search(self, query: str) -> list[KendraResponse]:
         response = self.client.retrieve(
             QueryText=query,
             IndexId=settings.KENDRA_INDEX_ID,
@@ -26,10 +26,11 @@ class KendraService:
         results = response["ResultItems"][:3] if response["ResultItems"] else []
 
         extracted_results = [
-            {
-                "Content": item.get("Content"),
-                "DocumentURI": item.get("DocumentURI"),
-            }
+            KendraResponse(
+                content=item.get("Content"), document_uri=item.get("DocumentURI")
+            )
             for item in results
+            if item.get("Content")
         ]
+
         return extracted_results
