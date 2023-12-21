@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import message
+from routers import query
 
 app = FastAPI()
-app.include_router(message.router)
+app.include_router(query.router)
