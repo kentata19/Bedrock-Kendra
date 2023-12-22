@@ -19,6 +19,7 @@ oscrypto = {git = "https://github.com/wbond/oscrypto.git", rev = "d5f3437ed24257
 opencv-python-headless = "^4.8.1.78"
 fastapi = "^0.105.0"
 uvicorn = "^0.24.0"
+langchain = "0.0.310"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

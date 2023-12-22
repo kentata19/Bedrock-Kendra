@@ -1,3 +1,3 @@
-from .schema import BedrockRequest, KendraResponse
+from .schema import KendraResponse
 
-__all__ = ["BedrockRequest", "KendraResponse"]
+__all__ = ["KendraResponse"]

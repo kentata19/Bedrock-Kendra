@@ -1,13 +1,16 @@
+from langchain.prompts import PromptTemplate
+
+
 class PromptCreatorService:
     def __init__(self, content: str, query: str) -> None:
         self.content = content
         self.query = query
 
-    def create_prompt(self) -> str:
-        prompt = f"""Human: 以下の文書を参考にしつつ、質問に専門的に答えてください。
+    def create_prompt(self) -> PromptTemplate:
+        template = f"""以下の文書を参考にしつつ、質問に専門的に答えてください。
 
             <document>
-            {self.content}
+            {self.__remove_braces(self.content)}
             </document>
 
             あなたは経験豊富なエンジニアであり、深い技術的な知識を持っています。
@@ -28,6 +31,15 @@ class PromptCreatorService:
 
             以下が質問です: {self.query}
 
-            Assistant:
-        """
-        return prompt
+            ChatHistory: {{chat_history}}
+            \nHuman: {{Query}}
+
+
+            \nAssistant:"""
+        return PromptTemplate(
+            input_variables=["chat_history", "Query"], template=template
+        )
+
+    @staticmethod
+    def __remove_braces(text: str) -> str:
+        return text.replace("{", "").replace("}", "")
